@@ -1,0 +1,124 @@
+import java.util.LinkedList;
+import java.util.Scanner;
+
+public class StudentList {
+    LinkedList<Student> students;
+
+    public StudentList() {
+        students = new LinkedList<>();
+    }
+
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+
+    public void displayList() {
+        for (Student student : students) {
+            System.out.println(student);
+        }
+    }
+
+    public void checkExistence() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter student name:");
+        String name = scanner.nextLine();
+        System.out.println("Enter student age:");
+        int age = scanner.nextInt();
+        System.out.println("Enter student mark:");
+        int mark = scanner.nextInt();
+        Student student = new Student(name, age, mark);
+        if (students.contains(student)) {
+            System.out.println("Student exists in the list.");
+        } else {
+            System.out.println("Student does not exist in the list.");
+        }
+    }
+
+    public void removeStudent(Student student) {
+        students.remove(student);
+    }
+
+    public void countStudents() {
+        System.out.println("Number of students in the list: " + students.size());
+    }
+}
+
+
+//STUDENT 
+
+public class Student {
+    private String name;
+    private int age;
+    private int mark;
+
+    public Student(String name, int age, int mark) {
+        this.name = name;
+        this.age = age;
+        this.mark = mark;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getMark() {
+        return mark;
+    }
+
+    public void setMark(int mark) {
+        this.mark = mark;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Student student = (Student) obj;
+        return age == student.age && mark == student.mark && name.equals(student.name);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", mark=" + mark +
+                '}';
+    }
+}
+
+
+//MAIN
+
+public class Main {
+    public static void main(String[] args) {
+        StudentList studentList = new StudentList();
+        studentList.addStudent(new Student("satyam", 20, 85));
+        studentList.addStudent(new Student("sameer", 22, 90));
+        studentList.addStudent(new Student("subha", 21, 88));
+
+        System.out.println("Displaying the list:");
+        studentList.displayList();
+
+        System.out.println("Checking existence of a student:");
+        studentList.checkExistence();
+
+        System.out.println("Removing a student:");
+        studentList.removeStudent(new Student("satyam", 20, 85));
+
+        System.out.println("Counting students:");
+        studentList.countStudents();
+    }
+}
