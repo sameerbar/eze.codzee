@@ -1,0 +1,98 @@
+public class User implements Comparable<User> {
+    private String name;
+    private int age;
+
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+    @Override
+    public int compareTo(User o){
+        User u =(User) o;
+        if(this.age >u.age)
+            return 1;
+        else
+            return 0;
+    }
+}
+
+
+
+//ARRAY LIST USER
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+public class ArrayListUser{
+    ArrayList<User> users;
+
+    public ArrayListUser() {
+        users = new ArrayList<>();
+    }
+
+    public void addUser(User user) {
+        users.add(user);
+    }
+
+    public void printUsers() {
+        for (User user : users) {
+            System.out.println(user);
+        }
+    }
+
+
+    public void sortUsersByAge() {
+        for(int i = users.size()-1;i>=0;i--){
+            for(int j =0;j<i;j++){
+                if(users.get(j).compareTo(users.get(j+1)) ==1){
+                    User temp = users.get(j);
+                    users.set(j,users.get(j+1));
+                    users.set(j+1,temp);
+                }
+            }
+        }
+    }
+}
+
+//MAIN
+public class Main {
+    public static void main(String[] args) {
+        ArrayListUser arrayListUser = new ArrayListUser();
+        arrayListUser.addUser(new User("Alice", 25));
+        arrayListUser.addUser(new User("Bob", 20));
+        arrayListUser.addUser(new User("Charlie", 30));
+
+        System.out.println("Before sorting:");
+        arrayListUser.printUsers();
+
+        arrayListUser.sortUsersByAge();
+
+        System.out.println("After sorting:");
+        arrayListUser.printUsers();
+    }
+}
